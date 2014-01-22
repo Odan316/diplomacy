@@ -1,0 +1,9 @@
+<?php
+/**
+ * @var $this GameController
+ */
+?>
+<?
+?>
+
+
