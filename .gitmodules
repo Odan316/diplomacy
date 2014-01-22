@@ -7,3 +7,6 @@
 [submodule "protected/extensions/yii-debug-toolbar"]
 	path = protected/extensions/yii-debug-toolbar
 	url = https://github.com/malyshev/yii-debug-toolbar.git
+[submodule "protected/modules/project13"]
+	path = protected/modules/project13
+	url = https://github.com/Odan316/project13.git
