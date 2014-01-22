@@ -1,0 +1,9 @@
+[submodule "protected/extensions/yii-booster"]
+	path = protected/extensions/yii-booster
+	url = https://github.com/clevertech/YiiBooster.git
+[submodule "protected/extensions/yiibooster"]
+	path = protected/extensions/yiibooster
+	url = https://github.com/clevertech/YiiBooster.git
+[submodule "protected/extensions/yii-debug-toolbar"]
+	path = protected/extensions/yii-debug-toolbar
+	url = https://github.com/malyshev/yii-debug-toolbar.git

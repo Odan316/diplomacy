@@ -1,0 +1,169 @@
+body{
+	margin: 0;
+	font-family: Trebuchet MS;
+	background-color: #93978F;
+    font-size: 12px;
+}
+#footer {
+    text-align: center;
+    width: 100%;
+}
+h1, h2, h3{
+	text-align: center;
+}
+h2, h3{
+	margin: 5px 0;
+}
+h3{
+    font-size: 16px;
+}
+
+.btn {
+     margin-right: 10px;
+ }
+
+.active_span{
+    font-size: 12px !important;
+    color: #7F0000;
+    cursor:pointer;
+    text-decoration: underline;
+}
+.b_error{
+	font-weight: bold;
+	color: red;
+	text-align: center;
+}
+.block1{
+	border: 2px solid #404040;
+    background-color: #FCF0AA;
+}
+.block2{
+	border: 1px solid #404040;
+    background-image: url('../images/design/bg1.jpg');
+}
+.b_page_wrap{
+    width: 1276px;
+    margin: 10px auto;
+}
+.float_clearer{
+	clear: both;
+}
+/* Start & Registration Page*/
+.b_start{
+	width: 600px;
+	margin: 20px auto;
+	padding: 10px 50px;
+}
+.b_auth, .b_reg{
+	width: 430px;
+	margin: 10px auto;
+	padding: 10px 20px;
+}
+.b_reg_start{
+	text-align:right;
+}
+
+/* Cabinet Page */
+.cabinet_left{
+    width: 410px;
+    margin: 0 5px 0 0;
+}
+.cabinet_right{
+    width: 800px;
+    margin: 0 0 0 5px;
+}
+.cabinet_left, .cabinet_right{
+    float: left;
+    min-height: 700px;
+    padding: 0 10px;
+}
+#cabinet_logout {
+    float: none !important;
+    position: relative;
+    top: -7px;
+ }
+.cabinet_game_creation{
+    display: none;
+    width: 360px;
+    padding: 10px 20px 20px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    margin-left: -200px;
+    z-index: 10;
+}
+.cabinet_game_creation input[type="text"], .cabinet_game_creation select{
+    width: 350px;
+    margin: 0 auto;
+}
+.cabinet_game_creation .btn{
+    margin: 15px 55px 0 50px;
+}
+.game_select{
+    cursor: pointer;
+}
+.game_select:hover{
+    background-color: #FFD800;
+}
+.point_title{
+    font-weight: bold;
+}
+.point_content{
+    margin-left:30px;
+}
+.point_row{
+    font-size: 16px;
+    font-weight: bold;
+    height: 25px;
+    padding: 2px;
+    position: relative;
+    width: 100%;
+}
+.claim_accept{
+    background-image: url("../images/design/accept.png");
+    cursor: pointer;
+    height: 20px;
+    left: 100px;
+    position: absolute;
+    top: 0;
+    width: 20px;
+}
+
+/* Cabinet Page */
+.b_cabinet{
+	width: 1276px;
+	margin: 10px auto;
+}
+.b_balance, .b_map, .b_orders{
+	float:left;
+}
+.b_map, .b_map_info{
+	width:480px;
+	padding: 0 10px;
+}
+.b_map{
+	min-height: 530px;
+}
+.b_map_info{
+	height: 100px;
+}
+.b_balance, .b_orders{
+	width: 365px;
+	padding: 10px;
+	min-height: 510px;
+}
+.b_balance_inner, .b_orders_inner{
+	width: 100%;
+}
+.bal_title{
+	font-weight: bold;
+}
+
+.point_row .btn.btn-small{
+    position: relative;
+    top: -2px;
+}
+
+#game_actions{
+    margin-top: 20px;
+}

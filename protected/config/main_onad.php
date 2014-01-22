@@ -28,7 +28,7 @@ return CMap::mergeArray(
 	),
     'params'=>array(
         // this is used in contact page
-        'rootPath'=>$_SERVER['DOCUMENT_ROOT'].'/diplo2',
+        'rootPath'=>$_SERVER['DOCUMENT_ROOT'].'/diplomacy',
         'globalsalt' => 'DiplomacyGame'
     ),
 ));

@@ -1,7 +1,0 @@
-<?php
-/**
- * @var $this GameController
- */
-?>
-<?
-?>

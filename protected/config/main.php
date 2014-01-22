@@ -72,7 +72,7 @@ return array(
                 ),
             ),
         'bootstrap' => array(
-            'class' => 'ext.yiibooster.components.Bootstrap',
+            'class' => 'ext.yiibooster.src.components.Bootstrap',
             'responsiveCss' => true,
         ),
 	),
