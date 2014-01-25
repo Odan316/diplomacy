@@ -28,7 +28,8 @@ class Controller extends CController
         Yii::app()->name = 'Дипломатия';
         /** @var $ClientScript CClientScript */
         $ClientScript = Yii::app()->clientScript;
-        $ClientScript->registerScriptFile($this->assetsBase.'/main/js/jquery-2.0.3.min.js'); //Yii-Debug-Toolbar не поддерживает ((
+        //$ClientScript->registerScriptFile($this->assetsBase.'/main/js/jquery-2.0.3.min.js');
+        //полключение jQ в этом месте конфликтует с YiiBooster ((
         $ClientScript->registerScriptFile($this->assetsBase.'/main/js/common.js');
     }
 

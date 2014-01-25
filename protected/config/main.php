@@ -12,8 +12,8 @@ return array(
 
 	// preloading 'log' component
 	'preload'=>array(
-        'log',
         'bootstrap',
+        'debug',
     ),
 
 	// autoloading model and component classes
@@ -23,7 +23,7 @@ return array(
 	),
 
 	'modules'=>array(
-        'antiquity',
+        //'antiquity',
         'project13'
 		// uncomment the following to enable the Gii tool
 		/*
@@ -61,19 +61,18 @@ return array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
 		),
-		'log'=>
-            array(
-                'class'=>'CLogRouter',
-                'routes'=>array(
-                    array(
-                        'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
-                        'ipFilters'=>array('127.0.0.1','192.168.1.215'),
-                    ),
-                ),
-            ),
+        'debug' => array(
+            'class' => 'ext.yii2-debug.Yii2Debug',
+            'enabled' => true
+        ),
+        'db' => array(
+            'enableProfiling' => true,
+            'enableParamLogging' => true,
+        ),
         'bootstrap' => array(
             'class' => 'ext.yiibooster.src.components.Bootstrap',
-            'responsiveCss' => true,
+            //'popoverSelector' => false,
+            //'tooltipSelector' => false
         ),
 	),
 
