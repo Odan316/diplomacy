@@ -43,7 +43,7 @@ class CabinetController extends Controller
             'master_games' => $user_model->master_games(),
             'claimed_games' => $user_model->claimed_games(),
             'player_games' => $user_model->player_games(),
-            'open_games' => Games::model()->open()->has_no_user(Yii::app()->user->uid)->findAll()
+            'open_games' => (new Games())->hasNoUser(Yii::app()->user->uid)->findAll()
         ));
     }
 
@@ -57,6 +57,7 @@ class CabinetController extends Controller
                 $model->setScenario('new_game');
                 $model->title = htmlspecialchars($_POST["game_title"]);
                 $model->module_id = htmlspecialchars($_POST["module_id"]);
+                $model->last_turn = 0;
                 if($model->save()){
                     $relations = new Users2games();
                     $relations->user_id = Yii::app()->user->uid;

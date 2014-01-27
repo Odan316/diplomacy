@@ -37,7 +37,8 @@ class m140127_090057_basic_install extends CDbMigration
             'status_id' => 'integer',
             'create_date' => 'date',
             'start_date' => 'date',
-            'end_date' => 'date'
+            'end_date' => 'date',
+            'last_turn' => 'integer'
         ));
         $this->createTable('game_statuses', array(
             'id' => 'pk',

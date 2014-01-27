@@ -19,19 +19,21 @@
     </div>
     <p class="point_title">Участники:</p>
     <div class="point_content" id="game_participants">
-        <div class="point_row">
-            <?php if($players_model): ?>
-                <?php foreach($players_model as $player): ?>
-                    <?=CHtml::encode($player->person ? $player->person->nickname : ""); ?> <br/>
-                <?php endforeach ?>
-            <?php else:?>
+        <?php if($players_model): ?>
+            <?php foreach($players_model as $player): ?>
+                <div class="point_row">
+                    <?=CHtml::encode($player->person ? $player->person->nickname : ""); ?>
+                </div>
+            <?php endforeach ?>
+        <?php else:?>
+            <div class="point_row">
                 <p>Нет участников</p>
-            <?php endif ?>
-        </div>
+            </div>
+        <?php endif ?>
     </div>
     <p class="point_title">Заявки:</p>
-    <?php if($claimers_model): ?>
     <div class="point_content" id="game_participants">
+    <?php if($claimers_model): ?>
         <?php foreach($claimers_model as $claimer): ?>
             <div class="point_row" data-id="<?=CHtml::encode($claimer->id); ?>">
                 <?=CHtml::encode($claimer->person ? $claimer->person->nickname : ""); ?>
@@ -51,8 +53,12 @@
                 } ?>
             </div>
         <?php endforeach ?>
-    </div>
+    <?php else:?>
+        <div class="point_row">
+            <p>Нет заявок</p>
+        </div>
     <?php endif ?>
+    </div>
     <div id="game_actions">
         <?php
             if(!$user_role){

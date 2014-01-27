@@ -29,7 +29,7 @@ $(function(){
             $.ajax({
                 type: "POST",
                 async: false,
-                url: "cabinet/createGame",
+                url: url_root + "cabinet/createGame",
                 dataType: 'json',
                 data: { 'game_title': game_title,
                         'module_id': module_id},

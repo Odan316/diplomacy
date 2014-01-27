@@ -10,6 +10,7 @@
  * @property string $create_date Дата создания Y-m-d
  * @property string $start_date Дата начала Y-m-d
  * @property string $end_date Дата окончания Y-m-d
+ * @property integer $last_turn Последний ход
  *
  * @property Users $user_relations
  * @property Users $master_user
@@ -43,7 +44,8 @@ class Games extends CActiveRecord
             'status_id'     => 'Статус',
             'create_date'   => 'Дата создания',
             'start_date'    => 'Дата начала',
-            'end_date'      => 'Дата окончания'
+            'end_date'      => 'Дата окончания',
+            'last_turn'     => 'Ход'
         );
     }
 
@@ -106,16 +108,33 @@ class Games extends CActiveRecord
      * @param $user_id
      * @return $this
      */
-    public function has_no_user($user_id)
+    public function has_user($user_id)
     {
         $criteria = $this->getDbCriteria();
-        $criteria->addNotInCondition('user_relations.user_id', array($user_id));
+        $criteria->addInCondition('user_relations.user_id', array($user_id));
         $criteria->mergeWith(array(
             'with' => 'user_relations'
         ));
 
         return $this;
     }
+
+    /**
+     * Условие для получения только игр, в которых никак не фигурирует указанный юзер
+     * @param $user_id
+     * @return $this
+     */
+    public function hasNoUser($user_id)
+    {
+        $games_with_user = (new Games())->has_user($user_id)->findAll();
+        $gamesIds = CHtml::listData($games_with_user, 'id', 'id');
+
+        $criteria = $this->getDbCriteria();
+        $criteria->addNotInCondition('id', $gamesIds);
+
+        return $this;
+    }
+
 
     public function beforeSave(){
         if($this->getScenario() == 'new_game'){
