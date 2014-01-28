@@ -147,12 +147,30 @@ class CabinetController extends Controller
 
     /**
      * (AJAX) Отмена игры, вызывается из Кабинета пользователя
+     *
      * @param $id ИД игры
      */
-    public function actionCancel_game($id){
+    public function actionCancel_game($id)
+    {
         /** @var $game_model Games */
         $game_model = Games::model()->findByPk($id);
         $game_model->status_id = Game_statuses::CANCELLED;
+        $game_model->save();
+
+        $this->redirect($this->createUrl('cabinet/view', array('game_id' => $id)));
+    }
+
+
+    /**
+     * (AJAX) Завершение игры, вызывается из Кабинета пользователя
+     *
+     * @param $id ИД игры
+     */
+    public function actionEnd_game($id)
+    {
+        /** @var $game_model Games */
+        $game_model = Games::model()->findByPk($id);
+        $game_model->status_id = Game_statuses::ENDED;
         $game_model->save();
 
         $this->redirect($this->createUrl('cabinet/view', array('game_id' => $id)));

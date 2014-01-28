@@ -72,7 +72,7 @@
                 if($model->status_id == Game_statuses::OPEN_GAME){
                     $this->widget('bootstrap.widgets.TbButton',array(
                         'label' => 'Начать игру',
-                        'type' => 'danger',
+                        'type' => 'success',
                         'url' => $this->createUrl('cabinet/start_game', array('id' => $model->id)),
                     ));
                     $this->widget('bootstrap.widgets.TbButton',array(
@@ -85,7 +85,12 @@
                     $this->widget('bootstrap.widgets.TbButton',array(
                         'label' => 'Перейти в кабинет Ведущего',
                         'type' => 'primary',
-                        'url' => $this->createUrl(($model->module ? $model->module->system_name : '').'/game')
+                        'url' => $this->createUrl(($model->module ? $model->module->system_name : '').'/game', array('id' => $model->id))
+                    ));
+                    $this->widget('bootstrap.widgets.TbButton',array(
+                        'label' => 'Завершить игру',
+                        'type' => 'danger',
+                        'url' => $this->createUrl('cabinet/end_game', array('id' => $model->id)),
                     ));
                 }
             }
@@ -94,7 +99,7 @@
                     $this->widget('bootstrap.widgets.TbButton',array(
                         'label' => 'Перейти в кабинет Игрока',
                         'type' => 'primary',
-                        'url' => $this->createUrl(($model->module ? $model->module->system_name : '').'/game')
+                        'url' => $this->createUrl(($model->module ? $model->module->system_name : '').'/game', array('id' => $model->id))
                     ));
                 }
             }
