@@ -70,16 +70,28 @@ class Users extends CActiveRecord
             'person' => array(self::HAS_ONE, 'Persons', 'user_id'),
             'games' => array(self::MANY_MANY, 'Games', 'users2games(user_id, game_id)'),
             'master_games' => array(self::MANY_MANY, 'Games', 'users2games(user_id, game_id)',
-                'condition' => "role_id = :role_id",
-                'params' => array(':role_id' => self::MASTER_ROLE)
+                'condition' => "role_id = :role_id AND status_id NOT IN (:ended, :cancelled)",
+                'params' => array(
+                    ':role_id' => self::MASTER_ROLE,
+                    ':ended' => Game_statuses::ENDED,
+                    ':cancelled' => Game_statuses::CANCELLED
+                )
             ),
             'claimed_games' => array(self::MANY_MANY, 'Games', 'users2games(user_id, game_id)',
-                'condition' => "role_id = :role_id",
-                'params' => array(':role_id' => self::CLAIMER_ROLE)
+                'condition' => "role_id = :role_id AND status_id NOT IN (:ended, :cancelled)",
+                'params' => array(
+                    ':role_id' => self::CLAIMER_ROLE,
+                    ':ended' => Game_statuses::ENDED,
+                    ':cancelled' => Game_statuses::CANCELLED
+                )
             ),
             'player_games' => array(self::MANY_MANY, 'Games', 'users2games(user_id, game_id)',
-                'condition' => "role_id = :role_id",
-                'params' => array(':role_id' => self::PLAYER_ROLE)
+                'condition' => "role_id = :role_id AND status_id NOT IN (:ended, :cancelled)",
+                'params' => array(
+                    ':role_id' => self::PLAYER_ROLE,
+                    ':ended' => Game_statuses::ENDED,
+                    ':cancelled' => Game_statuses::CANCELLED
+                )
             ),
         );
     }

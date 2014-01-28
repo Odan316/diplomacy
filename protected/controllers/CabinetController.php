@@ -64,6 +64,11 @@ class CabinetController extends Controller
                     $relations->game_id = $model->id;
                     $relations->role_id = Game_roles::GM_ROLE;
                     if($relations->save()){
+                        /** @var Modules $module */
+                        $module = Modules::model()->findByPk($model->module_id);
+                        Yii::import($module->system_name.'.models.Game');
+                        Yii::import($module->system_name.'.components.*');
+                        (new Game($model->id, 0))->createNewGame();
                         $result = array('result' => true);
                     }
                     else{

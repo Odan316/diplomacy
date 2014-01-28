@@ -85,7 +85,7 @@
                     $this->widget('bootstrap.widgets.TbButton',array(
                         'label' => 'Перейти в кабинет Ведущего',
                         'type' => 'primary',
-                        'url' => $this->createUrl(($model->module ? $model->module->system_name : '').'/', array('game' => $model->id)),
+                        'url' => $this->createUrl(($model->module ? $model->module->system_name : '').'/game')
                     ));
                 }
             }
@@ -94,7 +94,7 @@
                     $this->widget('bootstrap.widgets.TbButton',array(
                         'label' => 'Перейти в кабинет Игрока',
                         'type' => 'primary',
-                        'url' => $this->createUrl(($model->module ? $model->module->system_name : '').'/', array('game' => $model->id)),
+                        'url' => $this->createUrl(($model->module ? $model->module->system_name : '').'/game')
                     ));
                 }
             }
