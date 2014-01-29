@@ -42,5 +42,18 @@ class Persons extends CActiveRecord
             array('name, surname, patronymic', 'safe')
         );
     }
+
+    /**
+     * Условие для поиска моделей по заданным ID
+     * @param $ids
+     * @return Users
+     */
+    public function id_in($ids)
+    {
+        $criteria = $this->getDbCriteria();
+        $criteria->addInCondition('t.id', $ids);
+
+        return $this;
+    }
 }
 ?>
