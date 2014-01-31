@@ -3,9 +3,7 @@
  * Date: 10.10.13
  */
 
-$(function(){
-    window.url_root = "/diplomacy/";
-});
+window.url_root = "/diplomacy/";
 
 Object.size = function(obj) {
     var size = 0, key;
