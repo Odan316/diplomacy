@@ -9,6 +9,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title><?=CHtml::encode($this->pageTitle); ?></title>
+    <link href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
 
 <body>
