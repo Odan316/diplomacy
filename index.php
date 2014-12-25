@@ -1,6 +1,6 @@
 <?php
 if(strpos($_SERVER['HTTP_HOST'], 'local') !== false){
-    $yii=dirname(__FILE__).'/../../../Yii/yii.php';
+    $yii=dirname(__FILE__).'/yii/framework/yii.php';
     $config=dirname(__FILE__).'/protected/config/main_onad.php';
 } else {
     $yii=dirname(__FILE__).'/../../Yii/yii.php';
