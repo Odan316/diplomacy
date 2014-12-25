@@ -2,3 +2,4 @@
 *.svn*
 /assets
 /protected/runtime
+/protected/modules

@@ -4,12 +4,6 @@
 [submodule "protected/extensions/yii2-debug"]
 	path = protected/extensions/yii2-debug
 	url = https://github.com/zhuravljov/yii2-debug.git
-[submodule "protected/modules/project13"]
-	path = protected/modules/project13
-	url = https://github.com/Odan316/project13.git
 [submodule "yii"]
 	path = yii
 	url = https://github.com/yiisoft/yii.git
-[submodule "protected/modules/vestria"]
-	path = protected/modules/vestria
-	url = https://github.com/Odan316/vestria.git
