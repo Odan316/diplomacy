@@ -10,3 +10,6 @@
 [submodule "yii"]
 	path = yii
 	url = https://github.com/yiisoft/yii.git
+[submodule "protected/modules/vestria"]
+	path = protected/modules/vestria
+	url = https://github.com/Odan316/vestria.git
