@@ -7,3 +7,6 @@
 [submodule "protected/modules/project13"]
 	path = protected/modules/project13
 	url = https://github.com/Odan316/project13.git
+[submodule "yii"]
+	path = yii
+	url = https://github.com/yiisoft/yii.git
