@@ -55,7 +55,7 @@ class CabinetController extends Controller
             'master_games'   => $user_model->master_games(),
             'claimed_games'  => $user_model->claimed_games(),
             'player_games'   => $user_model->player_games(),
-            'open_games'     => ( new Games() )->hasNoUser( Yii::app()->user->uid )->findAll()
+            'open_games'     => ( new Games() )->hasNoUser( Yii::app()->user->uid )->open()->findAll()
         ] );
     }
 

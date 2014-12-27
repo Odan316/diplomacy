@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Users
  *
@@ -14,6 +15,7 @@
  * @method Games master_games() Получение игр, в которых юзер - мастер
  * @method Games claimed_games() Получение игр, в которых юзер подал заявку
  * @method Games player_games() Получение игр, в которых юзер принят игроком
+ * @method Games open() Получение открытых игр
  */
 class Users extends CActiveRecord
 {
@@ -32,11 +34,12 @@ class Users extends CActiveRecord
 
     /**
      * @param string $className
+     *
      * @return Users
      */
-    public static function model($className=__CLASS__)
+    public static function model( $className = __CLASS__ )
     {
-        return parent::model($className);
+        return parent::model( $className );
     }
 
     public function tableName()
@@ -46,83 +49,93 @@ class Users extends CActiveRecord
 
     public function attributeLabels()
     {
-        return array(
-            "id"                => '#',
-            "login"             => 'Логин',
-            "password"          => 'Пароль',
-            "salt"              => 'Соль',
-            "repeat_password"   => 'Повторите пароль',
-            "password_new"      => 'Новый пароль',
-        );
+        return [
+            "id"              => '#',
+            "login"           => 'Логин',
+            "password"        => 'Пароль',
+            "salt"            => 'Соль',
+            "repeat_password" => 'Повторите пароль',
+            "password_new"    => 'Новый пароль',
+        ];
     }
 
     public function rules()
     {
-        return array(
-            array('login, password', 'required'),
-            array('repeat_password, password_new, salt', 'safe')
-        );
+        return [
+            [ 'login, password', 'required' ],
+            [ 'repeat_password, password_new, salt', 'safe' ]
+        ];
     }
 
     public function relations()
     {
-        return array(
-            'person' => array(self::HAS_ONE, 'Persons', 'user_id'),
-            'games' => array(self::MANY_MANY, 'Games', 'users2games(user_id, game_id)'),
-            'master_games' => array(self::MANY_MANY, 'Games', 'users2games(user_id, game_id)',
+        return [
+            'person'        => [ self::HAS_ONE, 'Persons', 'user_id' ],
+            'games'         => [ self::MANY_MANY, 'Games', 'users2games(user_id, game_id)' ],
+            'master_games'  => [
+                self::MANY_MANY,
+                'Games',
+                'users2games(user_id, game_id)',
                 'condition' => "role_id = :role_id AND status_id NOT IN (:ended, :cancelled)",
-                'params' => array(
-                    ':role_id' => self::MASTER_ROLE,
-                    ':ended' => Game_statuses::ENDED,
+                'params'    => [
+                    ':role_id'   => self::MASTER_ROLE,
+                    ':ended'     => Game_statuses::ENDED,
                     ':cancelled' => Game_statuses::CANCELLED
-                )
-            ),
-            'claimed_games' => array(self::MANY_MANY, 'Games', 'users2games(user_id, game_id)',
+                ]
+            ],
+            'claimed_games' => [
+                self::MANY_MANY,
+                'Games',
+                'users2games(user_id, game_id)',
                 'condition' => "role_id = :role_id AND status_id NOT IN (:ended, :cancelled)",
-                'params' => array(
-                    ':role_id' => self::CLAIMER_ROLE,
-                    ':ended' => Game_statuses::ENDED,
+                'params'    => [
+                    ':role_id'   => self::CLAIMER_ROLE,
+                    ':ended'     => Game_statuses::ENDED,
                     ':cancelled' => Game_statuses::CANCELLED
-                )
-            ),
-            'player_games' => array(self::MANY_MANY, 'Games', 'users2games(user_id, game_id)',
+                ]
+            ],
+            'player_games'  => [
+                self::MANY_MANY,
+                'Games',
+                'users2games(user_id, game_id)',
                 'condition' => "role_id = :role_id AND status_id NOT IN (:ended, :cancelled)",
-                'params' => array(
-                    ':role_id' => self::PLAYER_ROLE,
-                    ':ended' => Game_statuses::ENDED,
+                'params'    => [
+                    ':role_id'   => self::PLAYER_ROLE,
+                    ':ended'     => Game_statuses::ENDED,
                     ':cancelled' => Game_statuses::CANCELLED
-                )
-            ),
-        );
+                ]
+            ],
+        ];
     }
 
     public function scopes()
     {
-        return array(
-        );
+        return [ ];
     }
 
     /**
      * Условие для поиска моделей по заданным ID
-     * @param $ids
+     *
+     * @param int[] $ids
+     *
      * @return Users
      */
-    public function id_in($ids)
+    public function id_in( $ids )
     {
         $criteria = $this->getDbCriteria();
-        $criteria->addInCondition('t.id', $ids);
+        $criteria->addInCondition( 't.id', $ids );
 
         return $this;
     }
 
-    public function beforeSave(){
-        if (in_array($this->getScenario(), array('registration'))) {
-            $this->salt = sprintf('%08x%08x%08x%08x', mt_rand(), mt_rand(), mt_rand(), mt_rand());
-            $this->password = $this->createHash($this->password, $this->salt);
-        }
-        else if (in_array($this->getScenario(), array('change_password'))) {
-            $this->salt = sprintf('%08x%08x%08x%08x', mt_rand(), mt_rand(), mt_rand(), mt_rand());
-            $this->password      = $this->createHash($this->password_new, $this->salt);
+    public function beforeSave()
+    {
+        if (in_array( $this->getScenario(), [ 'registration' ] )) {
+            $this->salt     = sprintf( '%08x%08x%08x%08x', mt_rand(), mt_rand(), mt_rand(), mt_rand() );
+            $this->password = $this->createHash( $this->password, $this->salt );
+        } else if (in_array( $this->getScenario(), [ 'change_password' ] )) {
+            $this->salt     = sprintf( '%08x%08x%08x%08x', mt_rand(), mt_rand(), mt_rand(), mt_rand() );
+            $this->password = $this->createHash( $this->password_new, $this->salt );
         }
         return parent::beforeSave();
     }
@@ -135,34 +148,35 @@ class Users extends CActiveRecord
      */
     public function authenticate()
     {
-        if(!$this->hasErrors()){
-            $this->_identity = new UserIdentity($this->login,$this->password);
-            if(!$this->_identity->authenticate()){
-                $this->addError('password', 'Incorrect username or password.');
+        if ( ! $this->hasErrors()) {
+            $this->_identity = new UserIdentity( $this->login, $this->password );
+            if ( ! $this->_identity->authenticate()) {
+                $this->addError( 'password', 'Incorrect username or password.' );
                 return false;
-            }
-            else{
+            } else {
                 /** @var $user CWebUser */
                 $user = Yii::app()->user;
-                $this->_identity->setState('uid', $this->_identity->getUID());
-                $user->login($this->_identity, 3600*24*30);
+                $this->_identity->setState( 'uid', $this->_identity->getUID() );
+                $user->login( $this->_identity, 3600 * 24 * 30 );
             }
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
     /**
      * Функция создания хэша для пароля
+     *
      * @param string $password
      * @param string $salt
+     *
      * @return string Хэшированный пароль
      */
-    public function createHash($password, $salt)
+    public function createHash( $password, $salt )
     {
-        return md5($password.md5(md5(Yii::app()->params->globalsalt.$password).md5($salt.$password)));
+        return md5( $password . md5( md5( Yii::app()->params->globalsalt . $password ) . md5( $salt . $password ) ) );
     }
 }
+
 ?>
