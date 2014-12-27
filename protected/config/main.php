@@ -24,7 +24,8 @@ return array(
 
 	'modules'=>array(
         //'antiquity',
-        'project13'
+        'project13',
+		'vestria'
 		// uncomment the following to enable the Gii tool
 		/*
 		'gii'=>array(
@@ -80,7 +81,7 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		'adminEmail'=>'si.andreev316@gmail.com',
         'globalsalt' => 'DiplomacyGame'
 	),
 );

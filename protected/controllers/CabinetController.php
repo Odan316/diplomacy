@@ -33,7 +33,7 @@ class CabinetController extends Controller
      *
      * @param int $game_id ИД игры
      */
-    public function actionIndex( $game_id )
+    public function actionIndex( $game_id = 0 )
     {
         $this->actionView( $game_id );
     }
@@ -43,7 +43,7 @@ class CabinetController extends Controller
      *
      * @param int $game_id
      */
-    public function actionView( $game_id )
+    public function actionView( $game_id = 0 )
     {
         /** @var $user_model Users */
         $user_model = Users::model()->with( 'person' )->findByPk( Yii::app()->user->uid );
@@ -79,7 +79,7 @@ class CabinetController extends Controller
                     if ($relations->save()) {
                         /** @var Modules $module */
                         $module = Modules::model()->findByPk( $model->module_id );
-                        Yii::import( $module->system_name . '.models.Game' );
+                        Yii::import( $module->system_name . '.models.*' );
                         Yii::import( $module->system_name . '.components.*' );
                         ( new Game( $model->id, 0 ) )->createNewGame();
                         $result = [ 'result' => true ];
@@ -221,7 +221,7 @@ class CabinetController extends Controller
      */
     private function getGameInfoHTML( $game_id )
     {
-        if ($game_id) {
+        if ( ! empty( $game_id )) {
             /** @var $model Games */
             $model = Games::model()->with( 'module' )->findByPk( $game_id );
 
