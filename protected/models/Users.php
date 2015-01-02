@@ -17,7 +17,7 @@
  * @method Games player_games() Получение игр, в которых юзер принят игроком
  * @method Games open() Получение открытых игр
  */
-class Users extends CActiveRecord
+class Users extends CActiveRecord implements JsonSerializable
 {
     /** @var string Повтор пароля при регистрации */
     public $repeat_password;
@@ -176,6 +176,17 @@ class Users extends CActiveRecord
     public function createHash( $password, $salt )
     {
         return md5( $password . md5( md5( Yii::app()->params->globalsalt . $password ) . md5( $salt . $password ) ) );
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'nickname' => $this->person->nickname
+        ];
     }
 }
 

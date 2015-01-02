@@ -10,17 +10,17 @@ class JSONModel
     /**
      * @var string Путь к папке данных модуля
      */
-    protected $model_path;
+    protected $modelPath;
 
     /**
      * @var string Имя файла игры
      */
-    protected $model_file;
+    protected $modelFile;
 
     /**
      * @var [] Сырые данные модели
      */
-    protected $raw_data;
+    protected $rawData;
 
     /**
      * @var [] Обработанные данные модели (хранилище по умолчанию)
@@ -32,19 +32,19 @@ class JSONModel
      */
     protected function loadFromFile()
     {
-        if (is_dir( $this->model_path )) {
-            $model_filepath = $this->model_path . $this->model_file;
-            if (file_exists( $model_filepath )) {
-                $file = fopen( $model_filepath, "r" );
-                if (filesize( $model_filepath )) {
-                    $data_string = fread( $file, filesize( $model_filepath ) );
+        if (is_dir( $this->modelPath )) {
+            $modelFilepath = $this->modelPath . $this->modelFile;
+            if (file_exists( $modelFilepath )) {
+                $file = fopen( $modelFilepath, "r" );
+                if (filesize( $modelFilepath )) {
+                    $dataString = fread( $file, filesize( $modelFilepath ) );
                 } else {
-                    $data_string = "[]";
+                    $dataString = "[]";
                 }
 
                 fclose( $file );
 
-                $this->raw_data = json_decode( $data_string, true );
+                $this->rawData = json_decode( $dataString, true );
 
                 $this->processRawData();
             }
@@ -67,9 +67,9 @@ class JSONModel
         if ($file) {
             $this->parseRawData();
 
-            $data_json = json_encode( $this->raw_data );
+            $dataJson = json_encode( $this->rawData );
 
-            return (boolean) fwrite( $file, $data_json ) && fclose( $file );
+            return (boolean) fwrite( $file, $dataJson ) && fclose( $file );
         }
         return false;
     }
@@ -81,7 +81,7 @@ class JSONModel
      */
     protected function fileExists()
     {
-        return ( is_dir( $this->model_path ) && file_exists( $this->model_path . $this->model_file ) );
+        return ( is_dir( $this->modelPath ) && file_exists( $this->modelPath . $this->modelFile ) );
     }
 
     /**
@@ -93,12 +93,12 @@ class JSONModel
     {
         $file = false;
 
-        if ( ! ( $dir = is_dir( $this->model_path ) )) {
-            $dir = mkdir( $this->model_path, 0777, 1 );
+        if ( ! ( $dir = is_dir( $this->modelPath ) )) {
+            $dir = mkdir( $this->modelPath, 0777, 1 );
         }
 
         if ($dir) {
-            $file = fopen( $this->model_path . $this->model_file, "w+" );
+            $file = fopen( $this->modelPath . $this->modelFile, "w+" );
         }
         return $file;
     }
@@ -110,7 +110,7 @@ class JSONModel
      */
     private function openFile()
     {
-        return fopen( $this->model_path . $this->model_file, "w" );
+        return fopen( $this->modelPath . $this->modelFile, "w" );
     }
 
     /**
@@ -119,7 +119,7 @@ class JSONModel
      */
     protected function processRawData()
     {
-        $this->attributes = $this->raw_data;
+        $this->attributes = $this->rawData;
     }
 
     /**
