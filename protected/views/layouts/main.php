@@ -30,7 +30,7 @@
 
     <?=$content; ?>
 
-    <div class="clear"></div>
+    <div class="clearfix"></div>
 
     <div id="footer">
         Copyright by Onad &copy; <?=date('Y'); ?>. No Rights Reserved.<br/>

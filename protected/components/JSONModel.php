@@ -5,7 +5,7 @@
  *
  * Класс для работы с файлами игры в виде JSON
  */
-class JSONModel
+abstract class JSONModel implements JsonSerializable
 {
     /**
      * @var string Путь к папке данных модуля
@@ -23,12 +23,40 @@ class JSONModel
     protected $rawData;
 
     /**
-     * @var [] Обработанные данные модели (хранилище по умолчанию)
+     * Конструктор
+     * Задает артибуты, если они переданы (формат: массив ключ => значение)
+     *
+     * @param [] $data
      */
-    protected $attributes = [ ];
+    public function __construct( $data = [ ] )
+    {
+        if ( ! empty( $data )) {
+            $this->setAttributes( $data );
+        }
+    }
 
     /**
-     * Загрузка файла в свойство класса $data
+     * Функция, задающая атрибуты (формат: массив ключ => значение)
+     *
+     * @param [] $data
+     */
+    public function setAttributes( $data )
+    {
+        foreach ($data as $param => $value) {
+            $this->$param = $value;
+        }
+    }
+
+    /**
+     * Задание пути к файлу (в том случае, если это модель, хранящаяся в отдельном файле)
+     * Реализуется в конкретной модели
+     */
+    protected function setPaths()
+    {
+    }
+
+    /**
+     * Загрузка файла в свойство класса $rawData
      */
     protected function loadFromFile()
     {
@@ -65,11 +93,7 @@ class JSONModel
         }
 
         if ($file) {
-            $this->parseRawData();
-
-            $dataJson = json_encode( $this->rawData );
-
-            return (boolean) fwrite( $file, $dataJson ) && fclose( $file );
+            return (boolean) (fwrite( $file, json_encode($this)) && fclose( $file ));
         }
         return false;
     }
@@ -115,19 +139,18 @@ class JSONModel
 
     /**
      * Загрузка сырых данных в атрибуты модели
-     * Может переопределятся в конкретной модели
+     * Реализуется в конкретной модели
      */
     protected function processRawData()
     {
-        $this->attributes = $this->rawData;
     }
 
     /**
-     * Выгрузка атрибутов модели в сырые данные
-     * Может переопределятся в конкретной модели для
+     * Реализуется в конкретной модели
+     * @inheritdoc
      */
-    protected function parseRawData()
+    public function jsonSerialize()
     {
-        $this->raw_data = $this->attributes;
+        return $this->rawData;
     }
 } 
