@@ -43,7 +43,10 @@ abstract class JSONModel implements JsonSerializable
     public function setAttributes( $data )
     {
         foreach ($data as $param => $value) {
+            if($this->$param != $value && method_exists($this, "onAttributeChange"))
+                $this->onAttributeChange($param, $this->$param, $value);
             $this->$param = $value;
+
         }
     }
 
@@ -152,5 +155,9 @@ abstract class JSONModel implements JsonSerializable
     public function jsonSerialize()
     {
         return $this->rawData;
+    }
+
+    protected function onAttributeChange($attributeName, $oldValue, $newValue)
+    {
     }
 } 
