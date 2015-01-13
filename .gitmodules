@@ -7,3 +7,6 @@
 [submodule "yii"]
 	path = yii
 	url = https://github.com/yiisoft/yii.git
+[submodule "protected/extensions/yii-colorpicker"]
+	path = protected/extensions/yii-colorpicker
+	url = https://github.com/tonybolzan/yii-colorpicker.git
