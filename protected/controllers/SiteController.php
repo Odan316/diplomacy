@@ -2,7 +2,7 @@
 /**
  * Class SiteController Базовый контроллер, испольщуется для логин-логаута, регистрации, отображения ошибок
  */
-class SiteController extends Controller
+class SiteController extends DiploController
 {
     public function init()
     {

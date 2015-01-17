@@ -3,7 +3,7 @@
 /**
  * Class CabinetController Контроллер для работы в Кабинете Пользователя
  */
-class CabinetController extends Controller
+class CabinetController extends DiploController
 {
     /**
      * TODO: Сделать для функций ГМа проверку на роль ГМа
@@ -57,6 +57,23 @@ class CabinetController extends Controller
             'player_games'   => $user_model->player_games(),
             'open_games'     => ( new Games() )->hasNoUser( Yii::app()->user->uid )->open()->findAll()
         ] );
+    }
+
+
+    /**
+     * Отображение заглушки, говорящей что страница не доступна этой роли
+     */
+    public function actionGame_access_denied()
+    {
+        $this->render( 'game_access_denied' );
+    }
+
+    /**
+     * Отображение заглушки, говорящей что страница не доступна этой роли
+     */
+    public function actionNo_such_game()
+    {
+        $this->render( 'no_such_game' );
     }
 
     /**

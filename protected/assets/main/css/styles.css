@@ -48,6 +48,17 @@ h3{
 .float_clearer{
 	clear: both;
 }
+#error_page_block{
+    border: 1px solid #404040;
+    background-image: url('../images/design/bg1.jpg');
+}
+#error_cabinet_link{
+    display: block;
+    font-size: 24px;
+    margin: 20px;
+    text-align: center;
+    width: 100%;
+}
 /* Start & Registration Page*/
 .b_start{
 	width: 600px;
