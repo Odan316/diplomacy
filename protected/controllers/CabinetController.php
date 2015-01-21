@@ -98,7 +98,10 @@ class CabinetController extends DiploController
                         $module = Modules::model()->findByPk( $model->module_id );
                         Yii::import( $module->system_name . '.models.*' );
                         Yii::import( $module->system_name . '.components.*' );
-                        ( new Game( $model->id, 0 ) )->createNewGame();
+                        $gameClass = "\\diplomacy\\modules\\".$module->system_name."\\models\\Game";
+                        /** @var GameInterface $game */
+                        $game = new $gameClass( $model->id, 0 );
+                        $game->createNewGame();
                         $result = [ 'result' => true ];
                     } else {
                         $result = [ 'result' => false ];

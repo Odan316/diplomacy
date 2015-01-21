@@ -1,4 +1,5 @@
 <?php
+Yii::setPathOfAlias('diplomacy', dirname(__FILE__).DIRECTORY_SEPARATOR.'..');
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
@@ -21,11 +22,12 @@ return array(
 		'application.models.*',
 		'application.components.*',
 	),
-
 	'modules'=>array(
         //'antiquity',
         'project13',
-		'vestria'
+		'vestria' => [
+			"class" => '\diplomacy\modules\vestria\VestriaModule'
+		]
 		// uncomment the following to enable the Gii tool
 		/*
 		'gii'=>array(
