@@ -157,6 +157,20 @@ abstract class JSONModel implements JsonSerializable
         return $this->rawData;
     }
 
+
+    /**
+     * @param \JSONModel[] $models
+     *
+     * @return array
+     */
+    public function makeList($models){
+        $list = [ ];
+        foreach ($models as $model) {
+            $list[] = $model->jsonSerialize();
+        }
+        return $list;
+    }
+
     protected function onAttributeChange($attributeName, $oldValue, $newValue)
     {
     }
