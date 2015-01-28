@@ -150,6 +150,7 @@ abstract class JSONModel implements JsonSerializable
 
     /**
      * Реализуется в конкретной модели
+     *
      * @inheritdoc
      */
     public function jsonSerialize()
@@ -157,8 +158,38 @@ abstract class JSONModel implements JsonSerializable
         return $this->rawData;
     }
 
+    /**
+     * Проверяет модель на соответствие присланному набору критериев в формате название поля => значение поля
+     *
+     * @param [] $criteria
+     *
+     * @return bool
+     */
+    public function testCriteria($criteria = [])
+    {
+        $meetCriteria = true;
+        foreach($criteria as $property => $value) {
+            if(strpos($property, ".")){
+                $parts = explode(".", $property);
+                $method = "get".$parts[0];
+                $property = $parts[1];
+                $model = $this->$method();
+            } else {
+                $model = $this;
+            }
+            if(!is_array($value)) $value = [$value];
+            if(!in_array($model->$property, $value)){
+                $meetCriteria = false;
+                break;
+            }
+        }
+        return $meetCriteria;
+    }
+
 
     /**
+     * Преобразует набор моделей в ассоциативный массив
+     *
      * @param \JSONModel[] $models
      *
      * @return array
