@@ -194,7 +194,7 @@ abstract class JSONModel implements JsonSerializable
      *
      * @return array
      */
-    public function makeList($models){
+    public static function makeList($models){
         $list = [ ];
         foreach ($models as $model) {
             $list[] = $model->jsonSerialize();
