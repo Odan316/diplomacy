@@ -159,6 +159,30 @@ abstract class JSONModel implements JsonSerializable
     }
 
     /**
+     * Принимает нефильтрованный список моделей, фильрует его и если нужно конвертирует в массив
+     *
+     * @param JSONModel[] $modelsList
+     * @param [] $criteria
+     * @param bool $asArray
+     *
+     * @return JSONModel[]|[]
+     */
+    public function getModelsList($modelsList = [], $criteria = [], $asArray = false)
+    {
+        $filteredList = [];
+
+        foreach($modelsList as $model){
+            if($model->testCriteria($criteria)) $filteredList[] = $model;
+        }
+
+        if ( ! $asArray) {
+            return $filteredList;
+        } else {
+            return $this->makeList($filteredList);
+        }
+    }
+
+    /**
      * Проверяет модель на соответствие присланному набору критериев в формате название поля => значение поля
      *
      * @param [] $criteria
