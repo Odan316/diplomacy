@@ -202,7 +202,15 @@ abstract class JSONModel implements JsonSerializable
                 $model = $this;
             }
             if(!is_array($value)) $value = [$value];
-            if(!in_array($model->$property, $value)){
+            // Проверки
+            if(in_array("notIn", $value)){
+                $value = $value[1];
+                if(in_array($model->$property, $value)){
+                    $meetCriteria = false;
+                    break;
+                }
+            }
+            else if(!in_array($model->$property, $value)){
                 $meetCriteria = false;
                 break;
             }
