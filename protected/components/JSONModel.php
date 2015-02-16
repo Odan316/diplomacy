@@ -126,6 +126,10 @@ abstract class JSONModel implements JsonSerializable
 
         if ($dir) {
             $file = fopen( $this->modelPath . $this->modelFile, "w+" );
+            fwrite( $file, json_encode($this));
+            fclose( $file );
+            chmod( $this->modelPath . $this->modelFile, 0777 );
+            $file = fopen( $this->modelPath . $this->modelFile, "w" );
         }
         return $file;
     }
