@@ -9,10 +9,10 @@ return [
     // application components
     'components' => [
         'db'  => [
-            'connectionString' => 'mysql:host=localhost;dbname=diplomacy',
+            'connectionString' => 'mysql:host=localhost;dbname=u0058909_default',
             'emulatePrepare'   => true,
-            'username'         => 'diplo',
-            'password'         => 'unmateoph4ia',
+            'username'         => 'u0058909_default',
+            'password'         => 'qqZvOX2!',
             'charset'          => 'utf8',
         ],
         'log' => [

@@ -83,4 +83,3 @@ return [
         'globalsalt' => 'DiplomacyGame'
     ],
 ];
-?>
