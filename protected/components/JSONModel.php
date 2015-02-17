@@ -121,6 +121,7 @@ abstract class JSONModel implements JsonSerializable
         $file = false;
 
         if ( ! ( $dir = is_dir( $this->modelPath ) )) {
+            umask(0000);
             $dir = mkdir( $this->modelPath, 0777, 1 );
         }
 
