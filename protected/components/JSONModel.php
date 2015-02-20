@@ -215,6 +215,14 @@ abstract class JSONModel implements JsonSerializable
                     break;
                 }
             }
+            elseif(in_array("in", $value, true)){
+                $value = $value[1];
+                if(!in_array($model->$property, $value)){
+                    $meetCriteria = false;
+                    break;
+                }
+                break;
+            }
             else if(!in_array($model->$property, $value)){
                 $meetCriteria = false;
                 break;
