@@ -199,10 +199,18 @@ abstract class JSONModel implements JsonSerializable
         $meetCriteria = true;
         foreach($criteria as $property => $value) {
             if(strpos($property, ".")){
-                $parts = explode(".", $property);
+
+
+                $objAlias = explode(".", $property);
+                $model = $this;
+                foreach($objAlias as $modelName){
+                    $model = call_user_func( [ $model, "get" . $modelName ] );
+                }
+
+                /*$parts = explode(".", $property);
                 $method = "get".$parts[0];
                 $property = $parts[1];
-                $model = $this->$method();
+                $model = $this->$method();*/
             } else {
                 $model = $this;
             }
