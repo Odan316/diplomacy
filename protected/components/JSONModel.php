@@ -198,40 +198,31 @@ abstract class JSONModel implements JsonSerializable
     {
         $meetCriteria = true;
         foreach($criteria as $property => $value) {
-            if(strpos($property, ".")){
-
-
-                $objAlias = explode(".", $property);
-                $model = $this;
-                foreach($objAlias as $modelName){
-                    $model = call_user_func( [ $model, "get" . $modelName ] );
-                }
-
-                /*$parts = explode(".", $property);
-                $method = "get".$parts[0];
-                $property = $parts[1];
-                $model = $this->$method();*/
-            } else {
-                $model = $this;
+            $model = $this;
+            $objAlias = explode(".", $property);
+            $propertyGetter = "get".array_pop($objAlias);
+            foreach($objAlias as $modelName){
+                $model = call_user_func( [ $model, "get" . $modelName ] );
             }
+
             if(!is_array($value)) $value = [$value];
             // Проверки
             if(in_array("notIn", $value, true)){
                 $value = $value[1];
-                if(in_array($model->$property, $value)){
+                if(in_array($model->$propertyGetter(), $value)){
                     $meetCriteria = false;
                     break;
                 }
             }
             elseif(in_array("in", $value, true)){
                 $value = $value[1];
-                if(!in_array($model->$property, $value)){
+                if(!in_array($model->$propertyGetter(), $value)){
                     $meetCriteria = false;
                     break;
                 }
                 break;
             }
-            else if(!in_array($model->$property, $value)){
+            else if(!in_array($model->$propertyGetter(), $value)){
                 $meetCriteria = false;
                 break;
             }
