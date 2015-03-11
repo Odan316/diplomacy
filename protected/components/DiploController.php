@@ -31,6 +31,7 @@ class DiploController extends CController
         //$ClientScript->registerScriptFile($this->assetsBase.'/main/js/jquery-2.0.3.min.js');
         //полключение jQ в этом месте конфликтует с YiiBooster ((
         $ClientScript->registerScriptFile($this->assetsBase.'/main/js/common.js');
+        $ClientScript->registerScriptFile($this->assetsBase.'/main/js/lib/jquery.validate.min.js');
     }
 
     public function beforeAction($action) {
