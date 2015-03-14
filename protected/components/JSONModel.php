@@ -36,18 +36,35 @@ abstract class JSONModel implements JsonSerializable
     }
 
     /**
+     * @param string $name
+     * @param [] $arguments
+     */
+    public function __call($name, $arguments)
+    {
+        if(preg_match("/^set(.+)/", $name, $parts)){
+            $property = $parts[1];
+            if(property_exists($this, $property)){
+                $this->setAtttibute($property, $arguments[0]);
+            }
+        }
+    }
+
+    /**
      * Функция, задающая атрибуты (формат: массив ключ => значение)
      *
      * @param [] $data
      */
     public function setAttributes( $data )
     {
-        foreach ($data as $param => $value) {
-            if($this->$param != $value && method_exists($this, "onAttributeChange"))
-                $this->onAttributeChange($param, $this->$param, $value);
-            $this->$param = $value;
-
+        foreach ($data as $attribute => $value) {
+            $this->setAtttibute($attribute, $value);
         }
+    }
+
+    public function setAtttibute($attribute, $value)
+    {
+        $this->onAttributeChange($attribute, $this->$attribute, $value);
+        $this->$attribute = $value;
     }
 
     /**
@@ -220,7 +237,13 @@ abstract class JSONModel implements JsonSerializable
                     $meetCriteria = false;
                     break;
                 }
-                break;
+            }
+            elseif(in_array("hasFlag", $value, true)){
+                $value = $value[1];
+                if(!method_exists($this, "hasFlag") || !$model->hasFlag($value)){
+                    $meetCriteria = false;
+                    break;
+                }
             }
             else if(!in_array($model->$propertyGetter(), $value)){
                 $meetCriteria = false;
@@ -246,6 +269,14 @@ abstract class JSONModel implements JsonSerializable
         return $list;
     }
 
+    /**
+     * Вызывается перед каждым изменении каждого атрибута модели,
+     * эту функцию следует реализовать в модели, по умолчанию ничего не делает
+     *
+     * @param string $attributeName Содержит имя измененого атрибута
+     * @param mixed $oldValue Содержит старое значение атрибута
+     * @param mixed $newValue Содержит новое значение атрибута
+     */
     protected function onAttributeChange($attributeName, $oldValue, $newValue)
     {
     }
