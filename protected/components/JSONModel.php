@@ -36,15 +36,38 @@ abstract class JSONModel implements JsonSerializable
     }
 
     /**
-     * @param string $name
-     * @param [] $arguments
+     * Перегруженная функция __call, обеспечивающая геттеры и сеттеры защищенных свойств модели.
+     *
+     * Что бы геттер или сеттер сработал название функции должно начинаться с get или set, соответственно,
+     * а после содержать название публичного или защищенного свойства класса,
+     * в т.ч. должен совпадать регистр (за исключением первого символа, который автоматически приводится к нижнему регистру)
+     * Например - getOfficerId() и getofficerId вернет свойство $officerId,
+     * но не вернет свойств $OfficerId (которое вообще не сможет быть возвращено автогеттером из-за первого символа в верхнем регистре)
+     * или $officerid из-за несовпадения регистра седьмого символа
+     *
+     * Автосеттер принимает 1 параметр - новое значение свойства и возвращает обеъект, которому оно было присвоено
+     * Автосеттер обеспечивает выполнение события onAttributeChange()
+     *
+     * Автогеттер не принимает параметров, возвращает текущее значение параметра
+     *
+     * @param string $name Function name
+     * @param [] $arguments Function arguments
+     *
+     * @return void|mixed
      */
     public function __call($name, $arguments)
     {
         if(preg_match("/^set(.+)/", $name, $parts)){
-            $property = $parts[1];
+            $property = lcfirst($parts[1]);
             if(property_exists($this, $property)){
-                $this->setAtttibute($property, $arguments[0]);
+                $this->setAttribute($property, $arguments[0]);
+                return $this;
+            }
+        }
+        if(preg_match("/^get(.+)/", $name, $parts)){
+            $property = lcfirst($parts[1]);
+            if(property_exists($this, $property)){
+                return $this->$property;
             }
         }
     }
@@ -57,11 +80,11 @@ abstract class JSONModel implements JsonSerializable
     public function setAttributes( $data )
     {
         foreach ($data as $attribute => $value) {
-            $this->setAtttibute($attribute, $value);
+            $this->setAttribute($attribute, $value);
         }
     }
 
-    public function setAtttibute($attribute, $value)
+    public function setAttribute($attribute, $value)
     {
         $this->onAttributeChange($attribute, $this->$attribute, $value);
         $this->$attribute = $value;
