@@ -261,6 +261,20 @@ abstract class JSONModel implements JsonSerializable
                     break;
                 }
             }
+            elseif(in_array("empty", $value, true)){
+                $propertyValue = $model->$propertyGetter();
+                if(!empty($propertyValue)){
+                    $meetCriteria = false;
+                    break;
+                }
+            }
+            elseif(in_array("notEmpty", $value, true)){
+                $propertyValue = $model->$propertyGetter();
+                if(empty($propertyValue)){
+                    $meetCriteria = false;
+                    break;
+                }
+            }
             elseif(in_array("hasFlag", $value, true)){
                 $value = $value[1];
                 if(!method_exists($this, "hasFlag") || !$model->hasFlag($value)){
